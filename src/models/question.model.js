@@ -33,7 +33,7 @@ const questionSchema = mongoose.Schema(
         vote: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vote',
-            required: true
+            // required: true   
         }
     }
 )
