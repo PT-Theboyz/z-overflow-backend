@@ -1,6 +1,5 @@
-const { string } = require('joi');
 const mongoose = require('mongoose');
-const { toJSON } = require('./plugins');
+const { toJSON, paginate } = require('./plugins');
 
 const questionSchema = mongoose.Schema(
     {
@@ -38,6 +37,11 @@ const questionSchema = mongoose.Schema(
         }
     }
 )
+
+
+// add plugin that converts mongoose to json
+questionSchema.plugin(toJSON);
+questionSchema.plugin(paginate);
 
 /**
  * @typedef Question
