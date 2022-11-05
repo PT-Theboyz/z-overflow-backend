@@ -29,8 +29,17 @@ const getQuestions = catchAsync(async (req, res) => {
     res.send(result);   
 });
 
+const getQuestion = catchAsync(async (req, res) => {
+    const question = await questionService.getQuestionById(req.params.questionId);
+    if (!question) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'question not found');
+    }
+    res.send(question);
+});
+
 
 module.exports = {
     createQuestion,
-    getQuestions
+    getQuestions,
+    getQuestion
 }

@@ -10,7 +10,9 @@ router
     .route('/')
     .post(auth(), validate(questionValidation.createQuestion), questionController.createQuestion)
     .get(validate(questionValidation.getQuestions), questionController.getQuestions)
-    
+router
+    .route('/:questionId')
+    .get(validate(questionValidation.getQuestion), questionController.getQuestion)
 
 module.exports = router;
 

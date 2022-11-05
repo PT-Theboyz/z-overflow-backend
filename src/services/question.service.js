@@ -25,8 +25,19 @@ const queryQuestions = async (filter, options) => {
     return questions;
 };
 
+/**
+ * Get question by id
+ * @param {ObjectId} id
+ * @returns {Promise<Question>}
+ */
+const getQuestionById = async (id) => {
+    return Question.findById(id).populate('author tags')
+};
+
+
 module.exports = {
     createQuestion,
-    queryQuestions
+    queryQuestions,
+    getQuestionById
 }
   
