@@ -13,7 +13,7 @@ router
 router
     .route('/:questionId')
     .get(validate(questionValidation.getQuestion), questionController.getQuestion)
-
+    .patch(auth(), validate(questionValidation.updateQuestion), questionController.updateQuestion)
 module.exports = router;
 
 /**
