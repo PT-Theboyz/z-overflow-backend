@@ -20,7 +20,9 @@ if (config.env !== 'test') {
  */
 const sendEmail = async (to, subject, text) => {
   const msg = { from: config.email.from, to, subject, text };
-  await transport.sendMail(msg);
+  let res = await transport.sendMail(msg);
+
+  console.log(res, "RESPONSE EMAIL")
 };
 
 /**
@@ -52,7 +54,9 @@ const sendVerificationEmail = async (to, token) => {
   const text = `Dear user,
   To verify your email, click on this link: ${verificationEmailUrl}
   If you did not create an account, then ignore this email.`;
-  await sendEmail(to, subject, text);
+  let test = await sendEmail(to, subject, text);
+
+  console.log(test)
 };
 
 module.exports = {
