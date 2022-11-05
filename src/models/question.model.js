@@ -5,12 +5,12 @@ const { toJSON } = require('./plugins');
 const questionSchema = mongoose.Schema(
     {
         title: {
-            type: string,
+            type: String,
             required: true,
             trim: true,
         },
         description: {
-            type: string,
+            type: String,
             required: true,
             trim: true,
         },
