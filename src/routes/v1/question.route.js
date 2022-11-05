@@ -9,7 +9,14 @@ const router = express.Router();
 router
     .route('/')
     .post(auth(), validate(questionValidation.createQuestion), questionController.createQuestion)
+    // .get(questionValidation.getQuestions)
     
 
 module.exports = router;
 
+/**
+ * @swagger
+ * tags:
+ *   name: Questions
+ *   description: Question management and retrieval
+ */

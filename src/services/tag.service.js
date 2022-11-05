@@ -44,7 +44,7 @@ const tagProcessing = async (tags) => {
  * @returns {Promise<Tag>}
  */
 const getTagByName = async (tagName) => {
-    return Tag.findOne({ tagName });
+    return Tag.findOne({ name: tagName });
 };
 
 module.exports = {

@@ -10,7 +10,8 @@ const createQuestion = catchAsync(async (req, res) => {
     let newQuestion = {
         title: req.body.title,
         description: req.body.description,
-        tags: tagProcessing
+        tags: tagProcessing,
+        author: req.user.id
     }
 
     const question = await questionService.createQuestion(newQuestion);
