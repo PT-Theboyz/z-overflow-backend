@@ -34,8 +34,9 @@ const questionSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vote',
             // required: true   
-        }
-    }
+        },
+    },
+    { timestamps: true }
 )
 
 

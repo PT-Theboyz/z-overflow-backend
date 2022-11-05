@@ -9,7 +9,7 @@ const router = express.Router();
 router
     .route('/')
     .post(auth(), validate(questionValidation.createQuestion), questionController.createQuestion)
-    // .get(questionValidation.getQuestions)
+    .get(validate(questionValidation.getQuestions), questionController.getQuestions)
     
 
 module.exports = router;
