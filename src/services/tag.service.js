@@ -4,7 +4,7 @@ const ApiError = require('../utils/ApiError');
 
 
 /**
- * Create multiple tag
+ * Create tag
  * @param {String} tags
  * @returns {Promise<Tag>}
  */

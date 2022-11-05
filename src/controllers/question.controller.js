@@ -5,17 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const { questionService, tagService } = require('../services');
 
 const createQuestion = catchAsync(async (req, res) => {
-    let tagProcessing = await tagService.tagProcessing(req.body.tags);
-
-    let newQuestion = {
-        title: req.body.title,
-        description: req.body.description,
-        tags: tagProcessing,
-        author: req.user.id,
-        createdAt: new Date()
-    }
-
-    const question = await questionService.createQuestion(newQuestion);
+    const question = await questionService.createQuestion(req.user.id, req.body);
     res.status(httpStatus.CREATED).send(question);
 });
 
@@ -37,9 +27,15 @@ const getQuestion = catchAsync(async (req, res) => {
     res.send(question);
 });
 
+const updateQuestion = catchAsync(async (req, res) => {
+    const question = await questionService.updateQuestionById(req.params.questionId, req.user.id, req.body);
+    res.status(httpStatus.CREATED).send(question);
+});
+
 
 module.exports = {
     createQuestion,
     getQuestions,
-    getQuestion
+    getQuestion,
+    updateQuestion
 }

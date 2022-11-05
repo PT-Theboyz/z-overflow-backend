@@ -31,9 +31,9 @@ const updateQuestion = {
     }),
     body: Joi.object()
     .keys({
-        title: Joi.string().required(),
-        description: Joi.string().required(),
-        tags: Joi.array().items().min(1).required()
+        title: Joi.string(),
+        description: Joi.string(),
+        tags: Joi.array().items().min(1)
     })
     .min(1),
 }

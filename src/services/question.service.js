@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const tagService = require('./tag.service')
 const { Question } = require('../models');
 const ApiError = require('../utils/ApiError');
 
@@ -7,8 +8,17 @@ const ApiError = require('../utils/ApiError');
  * @param {Object} questionBody
  * @returns {Promise<User>}
  */
-const createQuestion = async (questionBody) => {
-    return Question.create(questionBody);
+const createQuestion = async (userId, questionBody) => {
+    let tagProcessing = await tagService.tagProcessing(questionBody.tags);
+
+    let newQuestion = {
+        title: questionBody.title,
+        description: questionBody.description,
+        tags: tagProcessing,
+        author: userId
+    }
+
+    return Question.create(newQuestion);
 };
 
 /**
@@ -35,9 +45,42 @@ const getQuestionById = async (id) => {
 };
 
 
+/**
+ * Update a question by id
+ * @param {ObjectId} questionId
+ * @param {ObjectId} userId
+ * @param {Object} questionBody
+ * @returns {Promise<User>}
+ */
+const updateQuestionById = async (questionId, userId, questionBody) => {
+    const question = await getQuestionById(questionId);
+
+    if (!question){
+        throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+    }
+
+    if(question.author.id !== userId.toLowerCase()){
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorize on this question');
+    }
+
+    let tagProcessing = await tagService.tagProcessing(questionBody.tags);
+    let newQuestion = {
+        title: questionBody.title,
+        description: questionBody.description,
+        tags: tagProcessing,
+    }
+
+    Object.assign(question, newQuestion)
+
+    await question.save();
+    return question;
+};
+
+
 module.exports = {
     createQuestion,
     queryQuestions,
-    getQuestionById
+    getQuestionById,
+    updateQuestionById
 }
   
