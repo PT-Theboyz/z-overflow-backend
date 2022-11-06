@@ -38,8 +38,16 @@ const updateQuestion = {
     .min(1),
 }
 
+const deleteQuestion = {
+    params: Joi.object().keys({
+        questionId: Joi.string().custom(objectId),
+    }),
+}
+
 module.exports = {
     createQuestion,
     getQuestions,
-    getQuestion
+    getQuestion,
+    updateQuestion,
+    deleteQuestion
 }

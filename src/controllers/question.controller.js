@@ -33,9 +33,16 @@ const updateQuestion = catchAsync(async (req, res) => {
 });
 
 
+const deleteQuestion = catchAsync(async (req, res) => {
+    await questionService.deleteQuestionById(req.params.questionId, req.user.id);
+    res.status(httpStatus.NO_CONTENT).send();
+});
+
+
 module.exports = {
     createQuestion,
     getQuestions,
     getQuestion,
-    updateQuestion
+    updateQuestion,
+    deleteQuestion
 }

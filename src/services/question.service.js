@@ -59,7 +59,7 @@ const updateQuestionById = async (questionId, userId, questionBody) => {
         throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
     }
 
-    if(question.author.id !== userId.toLowerCase()){
+    if(question.author.id !== userId){
         throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorize on this question');
     }
 
@@ -77,10 +77,31 @@ const updateQuestionById = async (questionId, userId, questionBody) => {
 };
 
 
+/**
+ * Delete question by id
+ * @param {ObjectId} questionId
+ * @returns {Promise<Question>}
+ */
+const deleteQuestionById = async (questionId, userId) => {
+    const question = await getQuestionById(questionId);
+
+    if (!question) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Question not found');
+    }
+    if(question.author.id !== userId){
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorize on this question');
+    }
+
+    await question.remove();
+    return question;
+};
+
+
 module.exports = {
     createQuestion,
     queryQuestions,
     getQuestionById,
-    updateQuestionById
+    updateQuestionById,
+    deleteQuestionById
 }
   

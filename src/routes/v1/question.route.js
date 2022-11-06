@@ -14,6 +14,7 @@ router
     .route('/:questionId')
     .get(validate(questionValidation.getQuestion), questionController.getQuestion)
     .patch(auth(), validate(questionValidation.updateQuestion), questionController.updateQuestion)
+    .delete(auth(), validate(questionValidation.deleteQuestion), questionController.deleteQuestion)
 module.exports = router;
 
 /**
